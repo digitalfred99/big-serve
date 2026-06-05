@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Serve – Genuine iPhones in Ghana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & TOKENS ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #050d1f;
+      --navy2:  #0b1a35;
+      --gold:   #f5c518;
+      --gold2:  #e0a800;
+      --blue:   #1a56db;
+      --blue2:  #0e3a9e;
+      --white:  #f0f4ff;
+      --grey:   #8a9ab5;
+      --green:  #25d366;
+      --red:    #e63946;
+      --radius: 14px;
+      --shadow: 0 8px 40px rgba(0,0,0,.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: .04em; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw;
+      height: 64px;
+      background: rgba(5,13,31,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,197,24,.15);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: .08em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-logo .b-badge {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gold);
+      color: var(--navy);
+      display: grid; place-items: center;
+      font-size: 1.4rem; font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex; gap: 28px; list-style: none; font-size: .9rem; font-weight: 500;
+    }
+    .nav-links a { color: var(--grey); transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      padding: 8px 22px; border-radius: 50px;
+      font-weight: 700; font-size: .88rem;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--gold2); transform: scale(1.04); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 64px 0 0 0; z-index: 99;
+      background: rgba(5,13,31,.97);
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--white); transition: color .2s; }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100svh;
+      padding: 80px 6vw 60px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* animated background grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,86,219,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,86,219,.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridScroll 18s linear infinite;
+    }
+    @keyframes gridScroll { to { background-position: 0 48px; } }
+
+    /* radial glow */
+    .hero::after {
+      content: '';
+      position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,86,219,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(245,197,24,.12);
+      border: 1px solid rgba(245,197,24,.35);
+      color: var(--gold);
+      font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 50px; margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: var(--gold); display: block; }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--grey); line-height: 1.65;
+      max-width: 420px; margin-bottom: 36px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 700; font-size: .95rem;
+      transition: background .2s, transform .15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: scale(1.04); }
+
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 600; font-size: .95rem;
+      border: 1.5px solid rgba(255,255,255,.25);
+      transition: border-color .2s, transform .15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.04); }
+
+    /* hero phone mockup stack */
+    .hero-phones {
+      position: relative; display: flex; justify-content: center; align-items: flex-end;
+      height: 420px;
+    }
+
+    .phone-stack {
+      position: relative; width: 220px; height: 380px;
+    }
+
+    .phone-mock {
+      position: absolute;
+      width: 200px; height: 360px;
+      border-radius: 32px;
+      border: 2px solid rgba(255,255,255,.15);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .phone-mock img { width: 100%; height: 100%; object-fit: cover; }
+
+    .phone-mock-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; font-size: .75rem; color: rgba(255,255,255,.3);
+    }
+    .phone-mock-placeholder svg { opacity: .25; }
+
+    .pm1 { background: #1a2540; bottom: 0; left: 0; transform: rotate(-8deg); z-index: 1; }
+    .pm2 { background: #0e1e3a; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 3; }
+    .pm3 { background: #1c2a4a; bottom: 0; right: 0; transform: rotate(8deg); z-index: 1; }
+
+    /* floating badges */
+    .float-badge {
+      position: absolute; z-index: 10;
+      background: rgba(11,26,53,.9);
+      border: 1px solid rgba(245,197,24,.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: .78rem; font-weight: 600;
+      backdrop-filter: blur(8px);
+      animation: float 3s ease-in-out infinite;
+    }
+    .float-badge.fb1 { top: 10px; left: -40px; animation-delay: 0s; }
+    .float-badge.fb2 { top: 50px; right: -50px; animation-delay: 1s; }
+    .float-badge.fb3 { bottom: 30px; left: -50px; animation-delay: 2s; }
+    .float-badge .fb-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--gold); }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== SECTION SHARED ===== */
+    section { padding: 80px 6vw; }
+
+    .section-label {
+      font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05; margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--grey); font-size: 1rem; line-height: 1.6; max-width: 520px;
+    }
+    .section-header { margin-bottom: 48px; }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,197,24,.3), transparent);
+      margin: 0 6vw;
+    }
+
+    /* ===== PHONES GRID ===== */
+    #phones { background: var(--navy2); }
+
+    .phones-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .phone-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .phone-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245,197,24,.4);
+      box-shadow: 0 16px 48px rgba(0,0,0,.5);
+    }
+
+    .phone-card-img {
+      height: 220px;
+      background: linear-gradient(135deg, #0e1e3a 0%, #1a2f56 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .phone-card-img img { max-height: 90%; max-width: 85%; object-fit: contain; }
+
+    .placeholder-img {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: rgba(255,255,255,.2); font-size: .78rem; text-align: center; padding: 16px;
+    }
+
+    .phone-series-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--gold); color: var(--navy);
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 50px;
+    }
+
+    .phone-card-body { padding: 18px; }
+    .phone-card-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .phone-card-body p { font-size: .83rem; color: var(--grey); line-height: 1.5; margin-bottom: 14px; }
+
+    .card-actions { display: flex; gap: 10px; }
+
+    .btn-call, .btn-wa {
+      flex: 1; padding: 10px; border-radius: 50px;
+      font-size: .82rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: transform .15s, filter .15s;
+    }
+    .btn-call:hover, .btn-wa:hover { transform: scale(1.05); filter: brightness(1.1); }
+    .btn-call { background: var(--blue); color: #fff; }
+    .btn-wa { background: var(--green); color: #fff; }
+
+    /* ===== SERIES TABS ===== */
+    .series-tabs {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px;
+    }
+    .tab-btn {
+      padding: 9px 20px; border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,.15);
+      background: transparent; color: var(--grey);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      transition: all .2s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--gold); color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    /* ===== WHY ===== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .why-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      transition: border-color .25s, transform .25s;
+    }
+    .why-card:hover { border-color: rgba(245,197,24,.4); transform: translateY(-4px); }
+
+    .why-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .why-card p { font-size: .83rem; color: var(--grey); line-height: 1.55; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--navy2); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .info-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(245,197,24,.1);
+      display: grid; place-items: center; flex-shrink: 0;
+      font-size: 1.3rem;
+    }
+    .info-card h4 { font-size: .78rem; color: var(--grey); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .info-card p { font-size: 1rem; font-weight: 600; }
+
+    .cta-block {
+      background: linear-gradient(135deg, var(--blue2) 0%, #06205e 100%);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      border: 1px solid rgba(26,86,219,.4);
+    }
+    .cta-block h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; margin-bottom: 12px;
+    }
+    .cta-block p { color: rgba(240,244,255,.7); font-size: .9rem; margin-bottom: 28px; line-height: 1.6; }
+
+    .cta-buttons { display: flex; flex-direction: column; gap: 12px; }
+
+    .big-btn {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 24px; border-radius: 12px;
+      font-weight: 700; font-size: 1rem;
+      transition: transform .15s, filter .15s;
+    }
+    .big-btn:hover { transform: scale(1.03); filter: brightness(1.1); }
+    .big-btn-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .big-btn-text small { display: block; font-size: .72rem; font-weight: 400; opacity: .7; }
+
+    .call-btn { background: var(--blue); color: #fff; }
+    .call-btn .big-btn-icon { background: rgba(255,255,255,.15); }
+
+    .wa-btn { background: var(--green); color: #fff; }
+    .wa-btn .big-btn-icon { background: rgba(255,255,255,.15); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #020810;
+      padding: 40px 6vw 28px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+      gap: 20px;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    footer p { font-size: .82rem; color: var(--grey); }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .08em;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    /* ===== DELIVERY BANNER ===== */
+    .delivery-banner {
+      background: linear-gradient(90deg, var(--gold2) 0%, var(--gold) 100%);
+      color: var(--navy);
+      text-align: center;
+      padding: 12px 6vw;
+      font-weight: 700; font-size: .9rem;
+      letter-spacing: .04em;
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-phones { height: 280px; }
+      .phone-stack { width: 160px; height: 280px; }
+      .phone-mock { width: 150px; height: 270px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 5vw; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      section { padding: 60px 5vw; }
+
+      .hero { padding: 80px 5vw 50px; }
+      .hero h1 { font-size: 2.8rem; }
+      .hero-phones { display: none; }
+
+      .phones-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .phone-card-img { height: 160px; }
+
+      .why-grid { grid-template-columns: 1fr 1fr; }
+
+      .series-tabs { gap: 8px; }
+      .tab-btn { padding: 7px 15px; font-size: .8rem; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 380px) {
+      .phones-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DELIVERY BANNER -->
+<div class="delivery-banner">
+  🚚 &nbsp;DELIVERY AVAILABLE ACROSS GHANA &nbsp;|&nbsp; Affordable · Trusted · Reliable
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="b-badge">B</div>
+    BIG <span>SERVE</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#phones">Phones</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Deal</a>
+  <div class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#phones" class="mm-link">Phones</a>
+  <a href="#why" class="mm-link">Why Us</a>
+  <a href="#contact" class="mm-link">Contact</a>
+  <a href="tel:0247098016" class="btn-primary" style="font-family:'DM Sans',sans-serif; font-size:1rem;">📞 Call Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-label">🇬🇭 Agona Odoben, Ghana</div>
+      <h1>
+        Genuine
+        <span class="accent">iPhones</span>
+        You Can Afford
+      </h1>
+      <p class="hero-sub">
+        Big Serve is your most trusted source for affordable, negotiable iPhones across Ghana.
+        From iPhone X to the latest models — we've got you covered.
+      </p>
+      <div class="hero-btns">
+        <a href="#phones" class="btn-primary">🔍 Browse Phones</a>
+        <a href="https://wa.me/233247098016" target="_blank" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.118 1.528 5.849L.057 23.716a.5.5 0 0 0 .612.612l5.867-1.471A11.946 11.946 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.504-5.24-1.383l-.374-.22-3.886.973.993-3.884-.229-.383A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
+    </div>
+
+    <!-- Phone visual -->
+    <div class="hero-phones">
+      <div class="phone-stack">
+        <div class="phone-mock pm1">
+          <img src="images/iphones/14 pro.png" alt="Phone Mockup 1" />
+        </div>
+        <div class="phone-mock pm2">
+          <img src="images/iphones/14 pro.png" alt="Phone Mockup 1" />
+        </div>
+        <div class="phone-mock pm3">
+          <img src="images/iphones/14 pro.png" alt="Phone Mockup 1" />
+        </div>
+        <div class="float-badge fb1">
+          <div class="fb-val">9+</div>
+          <div>Series Available</div>
+        </div>
+        <div class="float-badge fb2">
+          <div class="fb-val">✓</div>
+          <div>Genuine Devices</div>
+        </div>
+        <div class="float-badge fb3">
+          <div class="fb-val">🚚</div>
+          <div>Ghana Delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PHONES -->
+<section id="phones">
+  <div class="section-header reveal">
+    <div class="section-label">Our Inventory</div>
+    <h2 class="section-title">Browse Available Models</h2>
+    <p class="section-sub">All devices are genuine, negotiable priced. Tap Call or WhatsApp to enquire about any model.</p>
+  </div>
+
+  <!-- Series filter tabs -->
+  <div class="series-tabs reveal" id="seriesTabs">
+    <button class="tab-btn active" data-series="all">All Models</button>
+    <button class="tab-btn" data-series="x">iPhone X</button>
+    <button class="tab-btn" data-series="11">iPhone 11</button>
+    <button class="tab-btn" data-series="12">iPhone 12</button>
+    <button class="tab-btn" data-series="13">iPhone 13</button>
+    <button class="tab-btn" data-series="14">iPhone 14</button>
+    <button class="tab-btn" data-series="15">iPhone 15</button>
+    <button class="tab-btn" data-series="16">iPhone 16</button>
+    <button class="tab-btn" data-series="17">iPhone 17</button>
+  </div>
+
+  <div class="phones-grid" id="phonesGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-header reveal">
+    <div class="section-label">Why Big Serve</div>
+    <h2 class="section-title">The Big Serve Difference</h2>
+    <p class="section-sub">We built our reputation on trust, affordability, and genuine devices. Here's what sets us apart.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(245,197,24,.12);">💰</div>
+      <h3>Affordable Prices</h3>
+      <p>We offer the most competitive prices on genuine iPhones in Ghana. No hidden charges.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(37,211,102,.12);">🤝</div>
+      <h3>Negotiable Deals</h3>
+      <p>Every price is open to discussion. We work with your budget to get you the right phone.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(26,86,219,.12);">🛡️</div>
+      <h3>Genuine Devices</h3>
+      <p>Every iPhone we sell is 100% genuine — no clones, no fakes, no compromises.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(230,57,70,.12);">🎧</div>
+      <h3>Trusted Customer Service</h3>
+      <p>Our team is available via call and WhatsApp to answer every question you have.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(245,197,24,.12);">🚚</div>
+      <h3>Nationwide Delivery</h3>
+      <p>We deliver across all regions of Ghana. Safely packaged and promptly shipped.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-icon" style="background:rgba(26,86,219,.12);">📍</div>
+      <h3>Convenient Pickup</h3>
+      <p>Prefer to pick up in person? Visit us at Agona Odoben and inspect your device before purchase.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Contact Big Serve</h2>
+    <p class="section-sub">Ready to get your dream iPhone? Reach out now — we respond fast.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Location</h4>
+          <p>Agona Odoben, Ghana</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📞</div>
+        <div>
+          <h4>Phone / WhatsApp</h4>
+          <p>024 709 8016 &nbsp;|&nbsp; 059 421 4068</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🚚</div>
+        <div>
+          <h4>Delivery</h4>
+          <p>Available across all Ghana</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⏰</div>
+        <div>
+          <h4>Availability</h4>
+          <p>Mon – Sat: 8 AM – 8 PM</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block reveal">
+      <h3>Ready To Order? 🎉</h3>
+      <p>Call or WhatsApp us right now. Tell us which model you're interested in and we'll give you the best price possible.</p>
+      <div class="cta-buttons">
+        <a href="tel:0247098016" class="big-btn call-btn">
+          <div class="big-btn-icon">📞</div>
+          <div class="big-btn-text">
+            <small>Tap to call</small>
+            024 709 8016
+          </div>
+        </a>
+        <a href="tel:0594214068" class="big-btn call-btn">
+          <div class="big-btn-icon">📞</div>
+          <div class="big-btn-text">
+            <small>Tap to call</small>
+            059 421 4068
+          </div>
+        </a>
+        <a href="https://wa.me/233247098016" target="_blank" class="big-btn wa-btn">
+          <div class="big-btn-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.118 1.528 5.849L.057 23.716a.5.5 0 0 0 .612.612l5.867-1.471A11.946 11.946 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.504-5.24-1.383l-.374-.22-3.886.973.993-3.884-.229-.383A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          </div>
+          <div class="big-btn-text">
+            <small>Chat on WhatsApp</small>
+            024 709 8016
+          </div>
+        </a>
+        <a href="https://wa.me/233594214068" target="_blank" class="big-btn wa-btn">
+          <div class="big-btn-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.118 1.528 5.849L.057 23.716a.5.5 0 0 0 .612.612l5.867-1.471A11.946 11.946 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.504-5.24-1.383l-.374-.22-3.886.973.993-3.884-.229-.383A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          </div>
+          <div class="big-btn-text">
+            <small>Chat on WhatsApp</small>
+            059 421 4068
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BIG <span>SERVE</span></div>
+  <p>© 2025 Big Serve. Agona Odoben, Ghana. Affordable · Trusted · Reliable</p>
+  <div style="display:flex;gap:12px;">
+    <a href="tel:0247098016" style="color:var(--grey);font-size:.85rem;">📞 024 709 8016</a>
+    <a href="https://wa.me/233247098016" target="_blank" style="color:var(--green);font-size:.85rem;">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  // ===== PHONE DATA =====
+  const phones = [
+    { series: 'x', name: 'iPhone X', desc: 'OLED display, Face ID, A11 Bionic chip. A classic that still delivers.', img: 'images/iphones/x.png' },
+    { series: 'x', name: 'iPhone XR', desc: 'Large 6.5" OLED, Dual camera, A12 Bionic. Great value pick.', img: 'images/iphones/xr.png' },
+    { series: '11', name: 'iPhone 11', desc: 'Dual 12MP cameras, Night mode, A13 Bionic. Excellent all-rounder.', img: 'images/iphones/11.png' },
+    { series: '11', name: 'iPhone 11 Pro', desc: 'Triple camera system, Super Retina XDR, A13 Bionic. Pro in your pocket.', img: 'images/iphones/11 pro.png' },
+    { series: '11', name: 'iPhone 11 Pro Max', desc: 'Largest Pro screen, longest battery, triple cameras. The ultimate.', img: 'images/iphones/11 pro max.png' },
+    { series: '12', name: 'iPhone 12', desc: '5G capable, Ceramic Shield, A14 Bionic. Sleek and fast.', img: 'images/iphones/12.png' },
+    { series: '12', name: 'iPhone 12 Pro', desc: 'ProRAW photography, LiDAR Scanner, 5G. For serious shooters.', img: 'images/iphones/12 pro.png' },
+    { series: '13', name: 'iPhone 13', desc: 'Cinematic mode, A15 Bionic, all-day battery. A crowd favourite.', img: 'images/iphones/13.png' },
+    { series: '13', name: 'iPhone 13 Pro Max', desc: 'ProMotion 120Hz, macro camera, 1TB option. Built to impress.', img: 'images/iphones/13 pro max.png' },
+    { series: '14', name: 'iPhone 14', desc: 'Crash Detection, Emergency SOS, A15 Bionic. Smart safety features.', img: 'images/iphones/14.png' },
+    { series: '14', name: 'iPhone 14 Pro', desc: 'Dynamic Island, Always-On Display, 48MP main sensor.', img: 'images/iphones/14 pro.png' },
+    { series: '15', name: 'iPhone 15', desc: 'USB-C, 48MP main camera, A16 Bionic. The modern standard.', img: 'images/iphones/15.png' },
+    { series: '15', name: 'iPhone 15 Pro Max', desc: 'Titanium frame, A17 Pro, 5x optical zoom. Flagship perfection.', img: 'images/iphones/15 pro max.png' },
+    { series: '16', name: 'iPhone 16 Pro', desc: 'Latest generation, cutting-edge A-series chip, next-level camera.', img: 'images/iphones/16 pro.png' },
+    { series: '17', name: 'iPhone 17 Pro Max', desc: 'The pinnacle of the iPhone lineup. All-new design & AI features.', img: 'images/iphones/17 pro max.png' },
+  ];
+
+  const phoneIcon = `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="18" r="1" fill="rgba(255,255,255,0.2)" stroke="none"/></svg>`;
+
+  function seriesLabel(s) {
+    const map = { x:'X Series', '11':'11 Series', '12':'12 Series', '13':'13 Series', '14':'14 Series', '15':'15 Series', '16':'16 Series', '17':'17 Series' };
+    return map[s] || s;
+  }
+
+  // Alternate contacts daily
+  const contacts = [
+    {
+      phone: '0247098016',
+      whatsapp: '233247098016',
+      display: '024 709 8016'
+    },
+    {
+      phone: '0594214068',
+      whatsapp: '233594214068',
+      display: '059 421 4068'
+    }
+  ];
+
+  // Changes every day
+  const today = new Date();
+  const dayNumber = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
+  const activeContact = contacts[dayNumber % 2];
+
+  function renderPhones(filter) {
+    const grid = document.getElementById('phonesGrid');
+    const filtered = filter === 'all' ? phones : phones.filter(p => p.series === filter);
+    grid.innerHTML = filtered.map(p => `
+      <div class="phone-card">
+        <div class="phone-card-img">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" />` : `<div class="placeholder-img">${phoneIcon}<span>Add ${p.name}<br>image here</span></div>`}
+          <div class="phone-series-badge">${seriesLabel(p.series)}</div>
+        </div>
+        <div class="phone-card-body">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="card-actions">
+            <a href="tel:${activeContact.phone}" class="btn-call">📞 Call</a>
+            <a href="https://wa.me/${activeContact.whatsapp}?text=Hi%20Big%20Serve%2C%20I%27m%20interested%20in%20the%20${encodeURIComponent(p.name)}" target="_blank" class="btn-wa">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207 -.242-.579 -.487 -.5 -.669 -.51 -.173 -.008 -.371 -.01 -.57 -.01 -.198 0 -.52 .074 -.792 .372 -.272 .297 -1.04 1.016 -1.04 2.479 0 1.462 1.065 
+        </div>
+      </div>
+    `).join('');
+    observeReveal();
+  }
+
+  // Tabs
+  document.getElementById('seriesTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPhones(btn.dataset.series);
+  });
+
+  renderPhones('all');
+
+  // ===== SCROLL REVEAL =====
+  function observeReveal() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (!el.classList.contains('visible')) io.observe(el);
+    });
+  }
+  observeReveal();
+
+  // ===== HAMBURGER =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('.mm-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+</script>
+</body>
+</html>
