@@ -368,21 +368,21 @@
 
 <script>
   const phones=[
-    {series:'x',name:'iPhone X',desc:'OLED display, Face ID, A11 Bionic chip. A classic that still delivers.',img:'images/iphones/x.png'},
-    {series:'x',name:'iPhone XR',desc:'Large 6.5" OLED, Dual camera, A12 Bionic. Great value pick.',img:'images/iphones/xr.png'},
-    {series:'11',name:'iPhone 11',desc:'Dual 12MP cameras, Night mode, A13 Bionic. Excellent all-rounder.',img:'images/iphones/11.png'},
-    {series:'11',name:'iPhone 11 Pro',desc:'Triple camera system, Super Retina XDR, A13 Bionic. Pro in your pocket.',img:'images/iphones/11 pro.png'},
-    {series:'11',name:'iPhone 11 Pro Max',desc:'Largest Pro screen, longest battery, triple cameras. The ultimate.',img:'images/iphones/11 pro max.png'},
-    {series:'12',name:'iPhone 12',desc:'5G capable, Ceramic Shield, A14 Bionic. Sleek and fast.',img:'images/iphones/12.png'},
-    {series:'12',name:'iPhone 12 Pro',desc:'ProRAW photography, LiDAR Scanner, 5G. For serious shooters.',img:'images/iphones/12 pro.png'},
-    {series:'13',name:'iPhone 13',desc:'Cinematic mode, A15 Bionic, all-day battery. A crowd favourite.',img:'images/iphones/13.png'},
-    {series:'13',name:'iPhone 13 Pro Max',desc:'ProMotion 120Hz, macro camera, 1TB option. Built to impress.',img:'images/iphones/13 pro max.png'},
-    {series:'14',name:'iPhone 14',desc:'Crash Detection, Emergency SOS, A15 Bionic. Smart safety features.',img:'images/iphones/14.png'},
-    {series:'14',name:'iPhone 14 Pro',desc:'Dynamic Island, Always-On Display, 48MP main sensor.',img:'images/iphones/14 pro.png'},
-    {series:'15',name:'iPhone 15',desc:'USB-C, 48MP main camera, A16 Bionic. The modern standard.',img:'images/iphones/15.png'},
-    {series:'15',name:'iPhone 15 Pro Max',desc:'Titanium frame, A17 Pro, 5x optical zoom. Flagship perfection.',img:'images/iphones/15 pro max.png'},
-    {series:'16',name:'iPhone 16 Pro',desc:'Latest generation, cutting-edge A-series chip, next-level camera.',img:'images/iphones/16 pro.png'},
-    {series:'17',name:'iPhone 17 Pro Max',desc:'The pinnacle of the iPhone lineup. All-new design & AI features.',img:'images/iphones/17 pro max.png'},
+    {series:'x',name:'iPhone X',desc:'OLED display, Face ID, A11 Bionic chip. A classic that still delivers.',img:'images/iphones/x.webp'},
+    {series:'x',name:'iPhone XR',desc:'Large 6.5" OLED, Dual camera, A12 Bionic. Great value pick.',img:'images/iphones/xr.webp'},
+    {series:'11',name:'iPhone 11',desc:'Dual 12MP cameras, Night mode, A13 Bionic. Excellent all-rounder.',img:'images/iphones/11.webp'},
+    {series:'11',name:'iPhone 11 Pro',desc:'Triple camera system, Super Retina XDR, A13 Bionic. Pro in your pocket.',img:'images/iphones/11 pro.webp'},
+    {series:'11',name:'iPhone 11 Pro Max',desc:'Largest Pro screen, longest battery, triple cameras. The ultimate.',img:'images/iphones/11 pro max.webp'},
+    {series:'12',name:'iPhone 12',desc:'5G capable, Ceramic Shield, A14 Bionic. Sleek and fast.',img:'images/iphones/12.webp'},
+    {series:'12',name:'iPhone 12 Pro',desc:'ProRAW photography, LiDAR Scanner, 5G. For serious shooters.',img:'images/iphones/12 pro.webp'},
+    {series:'13',name:'iPhone 13',desc:'Cinematic mode, A15 Bionic, all-day battery. A crowd favourite.',img:'images/iphones/13.webp'},
+    {series:'13',name:'iPhone 13 Pro Max',desc:'ProMotion 120Hz, macro camera, 1TB option. Built to impress.',img:'images/iphones/13 pro max.webp'},
+    {series:'14',name:'iPhone 14',desc:'Crash Detection, Emergency SOS, A15 Bionic. Smart safety features.',img:'images/iphones/14.webp'},
+    {series:'14',name:'iPhone 14 Pro',desc:'Dynamic Island, Always-On Display, 48MP main sensor.',img:'images/iphones/14 pro.webp'},
+    {series:'15',name:'iPhone 15',desc:'USB-C, 48MP main camera, A16 Bionic. The modern standard.',img:'images/iphones/15.webp'},
+    {series:'15',name:'iPhone 15 Pro Max',desc:'Titanium frame, A17 Pro, 5x optical zoom. Flagship perfection.',img:'images/iphones/15 pro max.webp'},
+    {series:'16',name:'iPhone 16 Pro',desc:'Latest generation, cutting-edge A-series chip, next-level camera.',img:'images/iphones/16 pro.webp'},
+    {series:'17',name:'iPhone 17 Pro Max',desc:'The pinnacle of the iPhone lineup. All-new design & AI features.',img:'images/iphones/17 pro max.webp'},
   ];
   const phoneIcon=`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="18" r="1" fill="rgba(255,255,255,0.2)" stroke="none"/></svg>`;
   function seriesLabel(s){const m={x:'X Series','11':'11 Series','12':'12 Series','13':'13 Series','14':'14 Series','15':'15 Series','16':'16 Series','17':'17 Series'};return m[s]||s;}
@@ -394,7 +394,7 @@
     grid.innerHTML=filtered.map(p=>`
       <div class="phone-card">
         <div class="phone-card-img">
-          ${p.img?`<img src="${p.img}" alt="${p.name}" />`:`<div class="placeholder-img">${phoneIcon}<span>Add ${p.name}<br>image here</span></div>`}
+          ${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy" />`:`<div class="placeholder-img">${phoneIcon}<span>Add ${p.name}<br>image here</span></div>`}
           <div class="phone-series-badge">${seriesLabel(p.series)}</div>
         </div>
         <div class="phone-card-body">
